@@ -1,2 +1,1 @@
-# superstore
-E-Commerce site built with Sequelize and Express.js
+# E-commerce Back End Starter Code
