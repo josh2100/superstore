@@ -1,11 +1,9 @@
 const router = require("express").Router();
 const { Category, Product } = require("../../models");
 
-///api/categories endpoint
-// returns empty set []
+// Read all categories api/categories
 router.get("/", async (req, res) => {
   try {
-    //  find all categories
     const categories = await Category.findAll({
       // attributes: ["category_name"], only for certain columns
       // be sure to include its associated Products
@@ -17,20 +15,13 @@ router.get("/", async (req, res) => {
       ],
     });
 
-    // test findAll()
-    // const categories = await Category.findAll();
-
-    res.json(categories);
+    res.status(200).json(categories);
   } catch (error) {
     res.status(500).json(error);
   }
-
-  // Test validates that route works
-  // const result = "hello"
-  // res.json(result);
 });
 
-// api/categories/:id
+// Read a single category by id api/categories/:id 
 router.get("/:id", async (req, res) => {
   try {
     const category = await Category.findOne({
@@ -41,14 +32,11 @@ router.get("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json(error);
   }
-
-  // find one category by its `id` value
-  // findOne([ where: id....])
-  // be sure to include its associated Products
 });
 
+// Create a new category api/categories/
 router.post("/", async (req, res) => {
-  // create a new category
+  // Expects {"category_name": "Name"}
   try {
     await Category.create(req.body);
 
@@ -58,26 +46,26 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Update a category by its id value api/categories/
 router.put("/:id", async (req, res) => {
-  // update a category by its `id` value
   try {
-     await Category.update(req.body, {where: { id: req.params.id }})
-    
+    await Category.update(req.body, { where: { id: req.params.id } });
+
     res.json(`category updated`);
   } catch (error) {
     res.status(500).json(error);
   }
 });
 
+// Delete a category by its id value api/categories/:id
 router.delete("/:id", async (req, res) => {
-  // delete a category by its `id` value
   try {
-    await Category.destroy({where: {id: req.params.id }})
-   
-   res.json(`category deleted`);
- } catch (error) {
-   res.status(500).json(error);
- }
+    await Category.destroy({ where: { id: req.params.id } });
+
+    res.json(`category deleted`);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 });
 
 module.exports = router;

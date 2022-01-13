@@ -1,22 +1,42 @@
-const router = require('express').Router();
-const { Product, Category, Tag, ProductTag } = require('../../models');
+const router = require("express").Router();
+const { Product, Category, Tag, ProductTag } = require("../../models");
 
-// The `/api/products` endpoint
+// Read all products api/products
+router.get("/", async (req, res) => {
 
-// get all products
-router.get('/', (req, res) => {
-  // find all products
-  // be sure to include its associated Category and Tag data
+  try {
+      // Find all products
+    const products = await Product.findAll({
+      include: [
+        {
+          model: Category,
+        },
+        { model: Tag},
+      ],
+    });
+
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 });
 
-// get one product
-router.get('/:id', (req, res) => {
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+// Read a single product by id api/products/:id 
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findOne({
+      where: { id: req.params.id },
+    });
+
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+
 });
 
-// create new product
-router.post('/', (req, res) => {
+// Create a new product api/products/
+router.post("/", (req, res) => {
   /* req.body should look like this...
     {
       product_name: "Basketball",
@@ -48,7 +68,7 @@ router.post('/', (req, res) => {
 });
 
 // update product
-router.put('/:id', (req, res) => {
+router.put("/:id", (req, res) => {
   // update product data
   Product.update(req.body, {
     where: {
@@ -89,7 +109,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete("/:id", (req, res) => {
   // delete one product by its `id` value
 });
 
