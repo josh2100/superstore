@@ -18,20 +18,23 @@ app.use(routes);
 /// Starter code above
 
 //Turn on connection to db
-// const connectDb = async () => {
+const connectDb = async () => {
 
-//   app.listen(PORT, () => {
-//     console.log(`App listening on port ${PORT}.`);
-//   });
-// }
+  try {
+    await sequelize.sync({ force: false });
+    app.listen(PORT, () => console.log(`App listening on port ${PORT}.`));
+  } catch (error) {
+    console.log("error starting server");
+  }
+}
 
-// connectDb();
+connectDb();
 
 // turn on connection to db and server
 // force: true allows drop if exists functionality to sequelize
 // leave force on false for better performance
 // .then syntax
-sequelize.sync({ force: true }).then(() => {
-  app.listen(PORT, () => console.log("Now listening"));
-});
+// sequelize.sync({ force: false }).then(() => {
+//   app.listen(PORT, () => console.log("Now listening"));
+// });
 
