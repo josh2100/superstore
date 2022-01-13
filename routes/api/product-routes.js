@@ -67,7 +67,7 @@ router.post("/", (req, res) => {
     });
 });
 
-// update product
+// Update product api/products/:id
 router.put("/:id", (req, res) => {
   // update product data
   Product.update(req.body, {
@@ -109,8 +109,17 @@ router.put("/:id", (req, res) => {
     });
 });
 
-router.delete("/:id", (req, res) => {
+// Delete product api/products/:id
+router.delete("/:id", async (req, res) => {
   // delete one product by its `id` value
+  try {
+    await Product.destroy({ where: { id: req.params.id } });
+
+    res.json(`Product deleted`);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+
 });
 
 module.exports = router;
