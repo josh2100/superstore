@@ -3,15 +3,14 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 
 // Read all products api/products
 router.get("/", async (req, res) => {
-
   try {
-      // Find all products
+    // Find all products
     const products = await Product.findAll({
       include: [
         {
           model: Category,
         },
-        { model: Tag},
+        { model: Tag },
       ],
     });
 
@@ -21,7 +20,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Read a single product by id api/products/:id 
+// Read a single product by id api/products/:id
 router.get("/:id", async (req, res) => {
   try {
     const product = await Product.findOne({
@@ -32,7 +31,6 @@ router.get("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json(error);
   }
-
 });
 
 // Create a new product api/products/
@@ -119,7 +117,6 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json(error);
   }
-
 });
 
 module.exports = router;

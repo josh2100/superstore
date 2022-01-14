@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Read a single category by id api/categories/:id 
+// Read a single category by id api/categories/:id
 router.get("/:id", async (req, res) => {
   try {
     const category = await Category.findOne({
@@ -40,7 +40,7 @@ router.post("/", async (req, res) => {
   try {
     await Category.create(req.body);
 
-    res.json("category created");
+    res.json("New category created");
   } catch (error) {
     res.status(500).json(error);
   }
@@ -51,7 +51,7 @@ router.put("/:id", async (req, res) => {
   try {
     await Category.update(req.body, { where: { id: req.params.id } });
 
-    res.json(`category updated`);
+    res.json(`Category updated`);
   } catch (error) {
     res.status(500).json(error);
   }
