@@ -1,7 +1,9 @@
 # Superstore
 Superstore is an e-commerce backend built with object relational mapping. API routes allow access to categories, products, and tags.
 
-Demo video at (link here)
+Demo video
+Part 1 https://watch.screencastify.com/v/GbjL5SOjY89x3VRW07yx
+Part 2 https://watch.screencastify.com/v/S4zJmaRVBZHBVSp4ijn7
 
 ![Superstore Screenshot](./images/screenshot.png)
 
