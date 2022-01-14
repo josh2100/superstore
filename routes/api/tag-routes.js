@@ -23,8 +23,6 @@ router.get("/", async (req, res) => {
 
 // Read a single tag by id api/tags/:id
 router.get("/:id", async (req, res) => {
-  // find a single tag by its `id`
-  // be sure to include its associated Product data
   try {
     const tag = await Tag.findOne({
       where: { id: req.params.id },
@@ -52,7 +50,6 @@ router.post("/", async (req, res) => {
 
 // Update a tag by its id api/tags/
 router.put("/:id", async (req, res) => {
-  // update a tag's name by its `id` value
   try {
     await Tag.update(req.body, { where: { id: req.params.id } });
 
